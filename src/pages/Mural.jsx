@@ -69,7 +69,7 @@ export default function Mural() {
 
   return (
     <div className="space-y-5">
-      <h2 className="text-lg font-semibold text-gray-700">Mural de Avisos</h2>
+      <h2 className="text-2xl font-bold text-gray-800">Mural de Avisos</h2>
 
       <AnnouncementForm onSubmit={handleCreate} />
 

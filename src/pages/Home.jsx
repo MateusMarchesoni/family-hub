@@ -1,21 +1,40 @@
-import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 export default function Home() {
-  const { profile } = useAuth()
+  const { profile, session, logout } = useAuth()
 
   return (
-    <div className="text-center py-16">
-      <h2 className="text-3xl font-bold text-indigo-600 mb-3">
-        Olá, {profile?.nome ?? '…'}!
-      </h2>
-      <p className="text-gray-400 mb-8">Bem-vindo ao Family Hub.</p>
-      <Link
-        to="/mural"
-        className="inline-block bg-indigo-600 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition-colors"
+    <div className="space-y-5">
+      <h2 className="text-2xl font-bold text-gray-800">Perfil</h2>
+
+      {/* Profile card */}
+      <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col items-center gap-3">
+        <div
+          className="w-24 h-24 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-sm"
+          style={{ backgroundColor: profile?.cor ?? '#4f46e5' }}
+        >
+          {(profile?.nome ?? '?')[0].toUpperCase()}
+        </div>
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-gray-800">{profile?.nome ?? '…'}</h3>
+          {session?.user?.email && (
+            <p className="text-sm text-gray-400 mt-0.5">{session.user.email}</p>
+          )}
+          {profile?.papel && (
+            <span className="inline-block mt-2 px-3 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 capitalize">
+              {profile.papel}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Logout */}
+      <button
+        onClick={logout}
+        className="w-full py-3.5 text-center text-sm font-semibold text-red-500 bg-white rounded-2xl shadow-sm hover:bg-red-50 transition-colors cursor-pointer"
       >
-        Ver Mural de Avisos →
-      </Link>
+        Sair da conta
+      </button>
     </div>
   )
 }

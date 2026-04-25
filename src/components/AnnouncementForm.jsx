@@ -27,7 +27,7 @@ export default function AnnouncementForm({ onSubmit }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 space-y-4">
+    <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-4">
       {error && (
         <p className="text-sm text-red-500 bg-red-50 rounded-lg px-3 py-2">{error}</p>
       )}

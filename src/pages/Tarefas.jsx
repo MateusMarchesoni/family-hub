@@ -406,7 +406,7 @@ export default function Tarefas() {
 
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold text-gray-700">Tarefas</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Tarefas</h2>
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex rounded-lg border border-gray-200 bg-white overflow-hidden text-sm">
             {FILTERS.map(f => (
@@ -425,7 +425,7 @@ export default function Tarefas() {
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+            className="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors cursor-pointer"
           >
             + Nova Tarefa
           </button>

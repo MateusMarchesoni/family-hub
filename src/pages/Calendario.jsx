@@ -291,10 +291,10 @@ export default function Calendario() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-700">Calendário</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Calendário</h2>
         <button
           onClick={openCreateModal}
-          className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+          className="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors cursor-pointer"
         >
           + Novo Evento
         </button>

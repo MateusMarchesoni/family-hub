@@ -21,7 +21,7 @@ export default function AnnouncementCard({ announcement, reactions, currentProfi
   const cardReactions = reactions.filter(r => r.announcement_id === id)
 
   return (
-    <div className={`bg-white rounded-xl border shadow-sm p-5 ${fixado ? 'border-indigo-200' : 'border-gray-100'}`}>
+    <div className={`bg-white rounded-2xl border shadow-sm p-5 ${fixado ? 'border-indigo-200' : 'border-gray-100'}`}>
       {fixado && <p className="text-xs text-indigo-500 font-medium mb-2">📌 Fixado</p>}
 
       <div className="flex items-start justify-between gap-3 mb-3">
