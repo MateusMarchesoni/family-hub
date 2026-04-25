@@ -3,7 +3,6 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
-  TouchSensor,
   closestCorners,
   useSensor,
   useSensors,
@@ -31,7 +30,7 @@ function fmt(ts) {
 }
 
 // ─── Task card (pure display) ───────────────────────────────────────────────
-function TaskCard({ task, currentProfileId, onDelete, overlay = false }) {
+function TaskCard({ task, currentProfileId, onDelete, onMove, overlay = false }) {
   const isOwner = task.criador_id === currentProfileId
   const overdue  = task.prazo && new Date(task.prazo) < new Date() && task.status !== 'feito'
   const p = PRIORITY[task.prioridade] ?? PRIORITY.media
@@ -79,12 +78,33 @@ function TaskCard({ task, currentProfileId, onDelete, overlay = false }) {
           <span className="text-xs text-gray-500">{task.responsavel.nome}</span>
         </div>
       )}
+
+      {/* Botões de mover — visíveis só em mobile (ocultos em md+) */}
+      {!overlay && onMove && (
+        <div className="mt-2.5 pt-2 border-t border-gray-50 flex gap-1 md:hidden">
+          {COLUMNS.map(col => (
+            <button
+              key={col.id}
+              disabled={task.status === col.id}
+              onPointerDown={e => e.stopPropagation()}
+              onClick={() => onMove(task.id, col.id)}
+              className={`flex-1 py-1 text-xs rounded-lg font-medium transition-colors ${
+                task.status === col.id
+                  ? 'bg-gray-50 text-gray-300 cursor-default'
+                  : 'bg-indigo-50 text-indigo-600 active:bg-indigo-100'
+              }`}
+            >
+              {col.label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
 // ─── Draggable wrapper ───────────────────────────────────────────────────────
-function DraggableCard({ task, currentProfileId, onDelete }) {
+function DraggableCard({ task, currentProfileId, onDelete, onMove }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: task.id,
     data: { task },
@@ -102,13 +122,13 @@ function DraggableCard({ task, currentProfileId, onDelete }) {
       {...attributes}
       className={isDragging ? 'opacity-0' : ''}
     >
-      <TaskCard task={task} currentProfileId={currentProfileId} onDelete={onDelete} />
+      <TaskCard task={task} currentProfileId={currentProfileId} onDelete={onDelete} onMove={onMove} />
     </div>
   )
 }
 
 // ─── Droppable column ────────────────────────────────────────────────────────
-function KanbanColumn({ column, tasks, currentProfileId, onDelete }) {
+function KanbanColumn({ column, tasks, currentProfileId, onDelete, onMove }) {
   const { isOver, setNodeRef } = useDroppable({ id: column.id })
 
   return (
@@ -132,6 +152,7 @@ function KanbanColumn({ column, tasks, currentProfileId, onDelete }) {
             task={task}
             currentProfileId={currentProfileId}
             onDelete={onDelete}
+            onMove={onMove}
           />
         ))}
       </div>
@@ -286,8 +307,7 @@ export default function Tarefas() {
   const [loading,    setLoading]    = useState(true)
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } })
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   )
 
   const fetchTasks = useCallback(async () => {
@@ -374,6 +394,13 @@ export default function Tarefas() {
     await supabase.from('tasks').delete().eq('id', id)
   }
 
+  function handleMove(taskId, newStatus) {
+    const current = tasks.find(t => t.id === taskId)?.status
+    if (!current || current === newStatus) return
+    setTasks(prev => prev.map(t => t.id === taskId ? { ...t, status: newStatus } : t))
+    supabase.from('tasks').update({ status: newStatus }).eq('id', taskId)
+  }
+
   return (
     <div className="space-y-4">
 
@@ -425,6 +452,7 @@ export default function Tarefas() {
                 tasks={byStatus[col.id] ?? []}
                 currentProfileId={profile?.id}
                 onDelete={handleDelete}
+                onMove={handleMove}
               />
             ))}
           </div>
