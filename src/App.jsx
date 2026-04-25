@@ -5,6 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Mural from './pages/Mural'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             }
           >
             <Route index element={<Home />} />
+            <Route path="mural" element={<Mural />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
