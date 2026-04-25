@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(cp -r /c/Users/Mat/_fh_temp/. /c/Users/Mat/family-hub/)",
+      "Bash(rm -rf /c/Users/Mat/_fh_temp)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Bash(pkill -f \"vite --port 5173\")",
+      "Bash(git -C /c/Users/Mat/family-hub init)",
+      "Bash(git -C /c/Users/Mat/family-hub status --short)",
+      "Bash(gh auth *)",
+      "Bash(git config *)",
+      "Bash(git -C /c/Users/Mat/family-hub config user.name \"Mateus Marchesoni\")",
+      "Bash(git -C /c/Users/Mat/family-hub config user.email \"milton@marchesoni.com.br\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(winget *)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh --version)",
+      "Bash(gh repo *)",
+      "Bash(git remote *)",
+      "Bash(git push *)"
+    ]
+  }
+}
