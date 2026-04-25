@@ -31,6 +31,7 @@ export default function Layout() {
           <NavLink to="/" end className={navLink}>Início</NavLink>
           <NavLink to="/mural" className={navLink}>Mural</NavLink>
           <NavLink to="/calendario" className={navLink}>Calendário</NavLink>
+          <NavLink to="/tarefas" className={navLink}>Tarefas</NavLink>
         </div>
       </nav>
 

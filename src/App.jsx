@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Mural from './pages/Mural'
 import Calendario from './pages/Calendario'
+import Tarefas from './pages/Tarefas'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="mural" element={<Mural />} />
             <Route path="calendario" element={<Calendario />} />
+            <Route path="tarefas" element={<Tarefas />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
