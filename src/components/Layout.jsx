@@ -30,6 +30,7 @@ export default function Layout() {
         <div className="max-w-4xl mx-auto px-6 flex gap-6">
           <NavLink to="/" end className={navLink}>Início</NavLink>
           <NavLink to="/mural" className={navLink}>Mural</NavLink>
+          <NavLink to="/calendario" className={navLink}>Calendário</NavLink>
         </div>
       </nav>
 
