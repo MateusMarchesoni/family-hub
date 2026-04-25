@@ -21,7 +21,21 @@
       "Bash(gh --version)",
       "Bash(gh repo *)",
       "Bash(git remote *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(gh api *)",
+      "Bash(mkdir -p \"C:/Users/Mat/family-hub/.claude/commands\")",
+      "Bash(mkdir -p \"C:/Users/Mat/family-hub/.claude/skills/ui-ux-pro-max/data/stacks\")",
+      "Bash(mkdir -p \"C:/Users/Mat/family-hub/.claude/skills/ui-ux-pro-max/scripts\")",
+      "Bash(cp C:/Users/Mat/AppData/Local/Temp/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max/SKILL.md C:/Users/Mat/family-hub/.claude/commands/ui-ux-pro-max.md)",
+      "Bash(cp 'C:/Users/Mat/AppData/Local/Temp/ui-ux-pro-max-skill/src/ui-ux-pro-max/scripts/*.py' C:/Users/Mat/family-hub/.claude/skills/ui-ux-pro-max/scripts/)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"family app social productivity minimalist mobile\" --design-system -p \"Family Hub\")",
+      "Bash(node scripts/gen-icons.mjs)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} — manifest: \" http://localhost:4173/manifest.webmanifest)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\nSW: \" http://localhost:4173/sw.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n192 icon: \" http://localhost:4173/pwa-192x192.png)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:4173/pwa-192x192.png)",
+      "Bash(kill %1)"
     ]
   }
 }
