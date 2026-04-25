@@ -23,12 +23,31 @@ export function AuthProvider({ children }) {
   }, [])
 
   async function fetchProfile(userId) {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single()
-    setProfile(data)
+
+    if (data) {
+      setProfile(data)
+      return
+    }
+
+    // Perfil não existe (trigger não disparou) — cria como fallback
+    if (error?.code === 'PGRST116') {
+      const { data: { user } } = await supabase.auth.getUser()
+      const nome =
+        user?.user_metadata?.nome ??
+        user?.email?.split('@')[0] ??
+        'Usuário'
+      const { data: novo } = await supabase
+        .from('profiles')
+        .insert({ id: userId, nome, papel: 'membro' })
+        .select()
+        .single()
+      setProfile(novo)
+    }
   }
 
   async function login(email, password) {

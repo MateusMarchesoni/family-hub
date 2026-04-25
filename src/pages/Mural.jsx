@@ -11,7 +11,7 @@ export default function Mural() {
   const [loading, setLoading] = useState(true)
 
   const fetchAll = useCallback(async () => {
-    const [{ data: ann }, { data: reac }] = await Promise.all([
+    const [{ data: ann, error: annErr }, { data: reac }] = await Promise.all([
       supabase
         .from('announcements')
         .select('*, autor:profiles!autor_id(nome, cor, avatar_url)')
@@ -19,6 +19,7 @@ export default function Mural() {
         .order('criado_em', { ascending: false }),
       supabase.from('reactions').select('*'),
     ])
+    if (annErr) console.error('Erro ao buscar avisos:', annErr.message)
     setAnnouncements(ann ?? [])
     setReactions(reac ?? [])
     setLoading(false)
@@ -37,12 +38,14 @@ export default function Mural() {
   }, [fetchAll])
 
   async function handleCreate({ texto, categoria, fixado }) {
-    await supabase.from('announcements').insert({
+    if (!profile?.id) throw new Error('Perfil não carregado. Tente novamente.')
+    const { error } = await supabase.from('announcements').insert({
       texto,
       categoria,
       fixado,
       autor_id: profile.id,
     })
+    if (error) throw new Error(error.message)
   }
 
   async function handleDelete(id) {

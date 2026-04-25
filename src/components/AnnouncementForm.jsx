@@ -7,16 +7,20 @@ export default function AnnouncementForm({ onSubmit }) {
   const [categoria, setCategoria] = useState('Recado')
   const [fixado, setFixado] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
     if (!texto.trim()) return
+    setError('')
     setLoading(true)
     try {
       await onSubmit({ texto: texto.trim(), categoria, fixado })
       setTexto('')
       setCategoria('Recado')
       setFixado(false)
+    } catch (err) {
+      setError(err.message)
     } finally {
       setLoading(false)
     }
@@ -24,6 +28,9 @@ export default function AnnouncementForm({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 space-y-4">
+      {error && (
+        <p className="text-sm text-red-500 bg-red-50 rounded-lg px-3 py-2">{error}</p>
+      )}
       <textarea
         value={texto}
         onChange={e => setTexto(e.target.value)}
